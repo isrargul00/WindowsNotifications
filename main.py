@@ -1,16 +1,17 @@
-# This is a sample Python script.
+from win10toast import ToastNotifier
+import requests
+notfy = ToastNotifier()
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+def main():
+    city = "hyderabad"
+    url = "http://api.openweathermap.org/data/2.5/weather?q={}&appid=5d82bd007e89d3d09e87df9f526cd725"
+    city_weather = requests.get(url.format(city)).json()
+    print(city_weather['main']['temp'])
+    print('-----------start -0---------------------------')
+    notfy.show_toast('Weather',"temperature" + str(city_weather['main']['temp']), icon_path='icon/icon.ico', duration=10)
+    print('-----------end -0---------------------------')
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
 
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    main()
